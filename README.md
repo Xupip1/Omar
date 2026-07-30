@@ -4,7 +4,7 @@
 
 **一个针对 Minecraft Paper 服务器的反矿透检测插件**
 
-[![Paper](https://img.shields.io/badge/Paper-1.21.8-2d2d2d?logo=minecraft&labelColor=FCFC03)](https://papermc.io)
+[![Paper](https://img.shields.io/badge/Paper-1.21.8-2d2d2d?logo=minecraft&labelColor=FCFC03)](https://www.leafmc.one/)
 [![Java](https://img.shields.io/badge/Java-21-orange?logo=openjdk&logoColor=white)](https://adoptium.net)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 [![Release](https://img.shields.io/badge/Release-v1.0.0-blue)](https://github.com/YOUR_USERNAME/Omar)
