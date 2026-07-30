@@ -1,0 +1,333 @@
+# ============================================
+#  Omar 反矿透插件 配置文件
+# ============================================
+
+# 检测时间窗口（秒）
+# 在此时间范围内统计玩家挖掘的矿石数量
+# 默认: 120 (2分钟)
+time-window: 120
+
+# 矿石全局阈值
+# 在时间窗口内挖掘超过此数量的目标矿石即触发警报
+# 可在下方为每种矿石设置独立阈值（设为0则使用此全局值）
+# 默认: 5
+ore-threshold: 5
+
+# 重点汇报时间窗口（秒）
+# 在此时间范围内被连续汇报多次即升格为重点汇报
+# 默认: 300 (5分钟)
+priority-time-window: 300
+
+# 重点汇报次数阈值
+# 在重点汇报时间窗口内被汇报达到此次数即升格
+# 默认: 3
+priority-report-threshold: 3
+
+# 矿石独立阈值
+# 设为 0 则使用全局 ore-threshold
+ore-thresholds:
+  diamond_ore: 0
+  deepslate_diamond_ore: 0
+  ancient_debris: 0
+
+# 是否警告被重点关注的玩家
+# true = 插件会自动私聊警告该玩家
+# false = 不警告玩家，仅通知管理员
+warn-suspected-player: true
+
+# 绕过白名单
+# 列入此名单的玩家不会被检测
+bypass-players:
+  # - "BuilderSteve"
+
+# 自动处理措施（默认关闭）
+# 当玩家触发重点汇报时自动执行的操作
+# action 可选: none / kick / ban / command
+# command 仅当 action 为 command 时生效，%player% 会被替换为玩家名
+auto-action:
+  enabled: false
+  action: "none"
+  command: "tempban %player% 1d 矿透作弊"
+  message: "&#f38ba8您因矿透嫌疑已被移出服务器"
+
+# 声音通知
+# 当警报触发时向管理员播放提示音
+sound-notification:
+  enabled: true
+  sound: "BLOCK_NOTE_BLOCK_PLING"
+  volume: 1.0
+  pitch: 1.0
+
+# 汇报管理员列表（玩家名）
+# 此处列出的玩家拥有接收警报和查看记录的权限
+# 也可以通过 /omar add <玩家> 命令添加
+admins:
+  - "Notch"
+
+# ============================================
+#  消息文本配置
+#  支持 hex 配色: &#RRGGBB
+#  常用配色参考:
+#    绿色 &#a6e3a1    红色 &#f38ba8
+#    黄色 &#f9e2af    灰色 &#9399b2
+#    金色 &#fab387
+# ============================================
+messages:
+  # 消息前缀
+  prefix: "&#9399b2[&#fab387Omar&#9399b2]"
+
+  # 权限不足
+  no-permission: "&#f38ba8你没有权限执行此命令！"
+
+  # 玩家未找到
+  player-not-found: "&#f38ba8未找到该玩家！"
+
+  # 玩家已是管理员
+  already-admin: "&#f38ba8该玩家已经是汇报管理员了！"
+
+  # 玩家不是管理员
+  not-admin: "&#f38ba8该玩家不是汇报管理员！"
+
+  # 添加管理员成功
+  admin-added: "&#a6e3a1已将 &#a6e3a1%player% &#a6e3a1添加为汇报管理员！"
+
+  # 移除管理员成功
+  admin-removed: "&#a6e3a1已将 &#a6e3a1%player% &#a6e3a1移除汇报管理员权限！"
+
+  # 矿透警告（发送给管理员）
+  report-alert: "&#9399b2[&#fab387矿透警告&#9399b2] &#a6e3a1%player% &#f9e2af有开矿透嫌疑！"
+
+  # 鼠标悬停提示文本（在聊天栏中点击警报时显示）
+  report-hover-text: "&#a6e3a1点击传送至最后一块矿石位置"
+
+  # 重点汇报警报（发送给管理员）
+  priority-report-alert: "&#9399b2[&#f38ba8&l重点警告&#9399b2] &#a6e3a1%player% &#f9e2af已被多次汇报！累计 &#f38ba8%count% &#f9e2af次，请重点关注！"
+
+  # 重点汇报悬停提示文本
+  priority-report-hover-text: "&#a6e3a1点击传送至最后位置"
+
+  # 警告被重点关注的玩家
+  warn-suspected-message: "&#f9e2af您有挖矿作弊的嫌疑，如果有，请立刻停止，如果没有，请忽略！"
+
+  # 点击传送后的提示
+  teleported: "&#f9e2af已传送至 &#a6e3a1%player% &#f9e2af的矿道位置！&#9399b2（%x%, %y%, %z%）"
+
+  # 传送失败（坐标世界不存在）
+  teleport-failed: "&#f38ba8传送失败，目标世界不存在或报告数据异常！"
+
+  # 重载成功
+  reload-success: "&#a6e3a1配置文件已成功重载！"
+
+  # 重载失败
+  reload-failed: "&#f38ba8配置文件重载失败，请检查配置文件格式！"
+
+  # 删除所有记录成功
+  delete-success: "&#a6e3a1已删除所有汇报记录！"
+
+  # 删除失败
+  delete-failed: "&#f38ba8删除汇报记录时发生错误！"
+
+  # 非法参数
+  invalid-args: "&#f38ba8参数错误！请输入 &#f9e2af/omar help &#f38ba8查看帮助。"
+
+  # 汇报记录为空
+  no-reports: "&#f9e2af暂无汇报记录。"
+
+  # 报告不存在
+  report-not-found: "&#f38ba8未找到该汇报记录！"
+
+  # 帮助信息
+  help-header:
+    - "&#fab387&l=== &#f9e2af&lOmar 反矿透插件 帮助 &#fab387&l==="
+    - ""
+    - "&#fab387/omar &#f9e2af- &#9399b2打开管理面板"
+    - "&#fab387/omar panel &#f9e2af- &#9399b2打开管理面板"
+    - "&#fab387/omar add &#a6e3a1<玩家> &#f9e2af- &#9399b2将玩家添加为汇报管理员"
+    - "&#fab387/omar remove &#a6e3a1<玩家> &#f9e2af- &#9399b2移除玩家的汇报管理员权限"
+    - "&#fab387/omar log &#f9e2af- &#9399b2打开汇报记录箱子面板"
+    - "&#fab387/omar imlog &#f9e2af- &#9399b2打开重点汇报记录面板"
+    - "&#fab387/omar check &#a6e3a1<玩家> &#f9e2af- &#9399b2查询玩家的汇报记录"
+    - "&#fab387/omar bypass add &#a6e3a1<玩家> &#f9e2af- &#9399b2添加白名单"
+    - "&#fab387/omar bypass remove &#a6e3a1<玩家> &#f9e2af- &#9399b2移除白名单"
+    - "&#fab387/omar stats &#f9e2af- &#9399b2查看插件统计信息"
+    - "&#fab387/omar delete &#f9e2af- &#9399b2删除所有汇报记录"
+    - "&#fab387/omar reload &#f9e2af- &#9399b2重载插件配置文件"
+    - "&#fab387/omar help &#f9e2af- &#9399b2显示此帮助信息"
+    - ""
+    - "&#9399b2权限节点: &#f9e2afomar.admin &#9399b2- 拥有所有Omar插件权限"
+    - "&#9399b2权限节点: &#f9e2afomar.report.receive &#9399b2- 接收矿透警报和查看记录"
+    - ""
+    - "&#9399b2提示: 支持与 &#f9e2afLuckPerms &#9399b2插件配合使用"
+
+  # ===== 管理面板 =====
+
+  # 管理面板标题
+  gui-panel-title: "&#9399b2Omar 管理面板"
+
+  # 汇报记录按钮
+  gui-panel-log: "&#f9e2af汇报记录"
+  gui-panel-log-lore:
+    - "&#9399b2查看所有矿透汇报记录"
+    - "&#a6e3a1点击打开"
+
+  # 重点汇报按钮
+  gui-panel-imlog: "&#f38ba8重点汇报"
+  gui-panel-imlog-lore:
+    - "&#9399b2查看被多次汇报的重点目标"
+    - "&#a6e3a1点击打开"
+
+  # 白名单管理按钮
+  gui-panel-bypass: "&#a6e3a1白名单管理"
+  gui-panel-bypass-lore:
+    - "&#9399b2管理不被检测的玩家"
+    - "&#a6e3a1点击打开"
+
+  # 查询玩家按钮
+  gui-panel-check: "&#f9e2af查询玩家"
+  gui-panel-check-lore:
+    - "&#9399b2查询指定玩家的汇报记录"
+    - "&#9399b2点击后在聊天栏输入玩家名"
+
+  # 统计信息按钮
+  gui-panel-stats: "&#fab387统计信息"
+  gui-panel-stats-lore:
+    - "&#9399b2查看插件的运行统计数据"
+    - "&#a6e3a1点击查看"
+
+  # 重载配置按钮
+  gui-panel-reload: "&#a6e3a1重载配置"
+  gui-panel-reload-lore:
+    - "&#9399b2重载插件的配置文件"
+    - "&#a6e3a1点击重载"
+
+  # 帮助按钮
+  gui-panel-help: "&#9399b2帮助"
+  gui-panel-help-lore:
+    - "&#9399b2查看插件帮助信息"
+    - "&#a6e3a1点击查看"
+
+  # ===== 白名单管理面板 =====
+
+  # 白名单面板标题
+  gui-bypass-title: "&#9399b2白名单管理"
+
+  # 添加白名单按钮
+  gui-bypass-add: "&#a6e3a1&l添加白名单"
+  gui-bypass-add-lore:
+    - "&#9399b2点击后在聊天栏输入玩家名"
+
+  # 白名单玩家移除提示
+  gui-bypass-remove-lore: "&#f38ba8点击移出白名单"
+
+  # 白名单为空
+  gui-bypass-empty: "&#9399b2暂无白名单玩家"
+
+  # 页码信息
+  gui-bypass-page-info: "&#9399b2第 &#f9e2af%page%&#9399b2/&#f9e2af%total%&#9399b2 页"
+
+  # 上一页
+  gui-bypass-previous-page: "&#a6e3a1◀ 上一页"
+
+  # 下一页
+  gui-bypass-next-page: "&#a6e3a1下一页 ▶"
+
+  # ===== 查询玩家 =====
+
+  # 查询标题头
+  check-header: "&#fab387&l=== &#f9e2af%player% &#fab387&l的检测报告 ==="
+  check-reports: "&#9399b2普通汇报: &#f9e2af%count% &#9399b2次"
+  check-priority-reports: "&#9399b2重点汇报: &#f38ba8%count% &#9399b2次"
+  check-last-report: "&#9399b2最近汇报: &#f9e2af%time%"
+  check-no-data: "&#f9e2af该玩家暂无任何汇报记录"
+  check-is-bypassed: "&#9399b2白名单状态: &#a6e3a1是"
+  check-not-bypassed: "&#9399b2白名单状态: &#9399b2否"
+  check-bypass-hint: "&#9399b2提示: 该玩家在白名单中，不会被检测"
+
+  # ===== 统计信息 =====
+
+  # 统计标题头
+  stats-header: "&#fab387&l=== &#f9e2af&lOmar 统计信息 &#fab387&l==="
+  stats-total-ores: "&#9399b2总检测矿石数: &#f9e2af%count%"
+  stats-total-reports: "&#9399b2普通汇报: &#f9e2af%count% &#9399b2次"
+  stats-total-priority: "&#9399b2重点汇报: &#f38ba8%count% &#9399b2次"
+  stats-bypass-count: "&#9399b2白名单玩家: &#a6e3a1%count% &#9399b2人"
+  stats-admin-count: "&#9399b2汇报管理员: &#f9e2af%count% &#9399b2人"
+  stats-time-window: "&#9399b2检测窗口: &#f9e2af%count% &#9399b2秒"
+  stats-threshold: "&#9399b2矿石阈值: &#f9e2af%count% &#9399b2个"
+  stats-auto-action: "&#9399b2自动处理: &#f9e2af%status%"
+
+  # ===== 白名单相关 =====
+
+  # 添加白名单成功
+  bypass-added: "&#a6e3a1已将 &#f9e2af%player% &#a6e3a1添加至白名单！"
+
+  # 移除白名单成功
+  bypass-removed: "&#a6e3a1已将 &#f9e2af%player% &#a6e3a1移出白名单！"
+
+  # 已在白名单中
+  bypass-already: "&#f38ba8该玩家已在白名单中！"
+
+  # 不在白名单中
+  bypass-not-found: "&#f38ba8该玩家不在白名单中！"
+
+  # 白名单列表
+  bypass-list-header: "&#fab387&l=== &#f9e2af&l白名单列表 &#fab387&l==="
+  bypass-list-empty: "&#9399b2暂无白名单玩家"
+  bypass-list-entry: "&#9399b2- &#f9e2af%player%"
+
+  # ===== 自动处理 =====
+
+  auto-action-kicked: "&#f38ba8您因矿透嫌疑已被移出服务器"
+
+  # ===== 常规面板 =====
+
+  # 箱子面板标题
+  gui-title: "&#9399b2矿石检测汇报记录"
+
+  # 上一页按钮
+  gui-previous-page: "&#a6e3a1◀ 上一页"
+
+  # 下一页按钮
+  gui-next-page: "&#a6e3a1下一页 ▶"
+
+  # 页码信息
+  gui-page-info: "&#9399b2第 &#f9e2af%page%&#9399b2/&#f9e2af%total%&#9399b2 页"
+
+  # 暂无汇报
+  gui-no-reports: "&#9399b2暂无汇报记录"
+
+  # 汇报物品的Lore（鼠标悬停时显示）
+  gui-report-lore:
+    - "&#9399b2玩家: &#a6e3a1%player%"
+    - "&#9399b2矿石类型: &#f9e2af%ore%"
+    - "&#9399b2挖掘数量: &#f9e2af%count% &#9399b2个"
+    - "&#9399b2时间: &#f9e2af%time%"
+    - "&#9399b2坐标: &#f9e2af%x%&#9399b2, &#f9e2af%y%&#9399b2, &#f9e2af%z%"
+    - ""
+    - "&#a6e3a1点击传送至坐标位置"
+
+  # ===== 重点汇报面板 =====
+
+  # 重点汇报箱子面板标题
+  gui-imlog-title: "&#9399b2重点汇报记录"
+
+  # 上一页按钮
+  gui-imlog-previous-page: "&#a6e3a1◀ 上一页"
+
+  # 下一页按钮
+  gui-imlog-next-page: "&#a6e3a1下一页 ▶"
+
+  # 页码信息
+  gui-imlog-page-info: "&#9399b2第 &#f9e2af%page%&#9399b2/&#f9e2af%total%&#9399b2 页"
+
+  # 暂无重点汇报
+  gui-imlog-no-reports: "&#9399b2暂无重点汇报记录"
+
+  # 重点汇报物品的Lore
+  gui-imlog-report-lore:
+    - "&#9399b2玩家: &#a6e3a1%player%"
+    - "&#9399b2累计汇报: &#f38ba8%count% &#9399b2次"
+    - "&#9399b2时间: &#f9e2af%time%"
+    - "&#9399b2坐标: &#f9e2af%x%&#9399b2, &#f9e2af%y%&#9399b2, &#f9e2af%z%"
+    - ""
+    - "&#a6e3a1点击传送至坐标位置"
